@@ -1,25 +1,47 @@
-const container = document.querySelector(".container")
-let divs = []
-for (i=0; i<16*16; i++){
-    var div = document.createElement("div")
-    container.appendChild(div)
-    div.classList.toggle("div")
-    divs.push(div)
+function deleteBoxes(){
+    for (i=divs.length-1; i>=0; i--){
+        divs[i].remove()
+        divs.pop()
+    }
 }
-
-divs.forEach(div =>{
+function makeBoxes(num){
+    for (i=0; i<num*num; i++){
+        var div = document.createElement("div")
+        container.appendChild(div)
+        div.setAttribute("style", `width:${960/num -8}px; height:${960/num -8}px`)
+        div.classList.toggle("div")
+        divs.push(div)
+    }
+}
+function addEvents(divs){
+    divs.forEach(div =>{
     div.addEventListener("mouseenter", (e) =>{
         if (e.target.className !="div-hover"){
             div.classList.toggle("div")
             div.classList.toggle("div-hover")
         }
-        
-        
     })
 })
-console.log(container.className)
+}
+function newGrid(divs){
+    var input
+    input = parseInt(prompt("Enter dimensions between 2 and 100"))
+    deleteBoxes()
+    makeBoxes(input)
+    addEvents(divs)
+}
 
-// input = prompt()
+let num =16
+let divs = []
+
+const container = document.querySelector(".container")
+const dimBtn = document.querySelector(".dim-btn")
+
+
+makeBoxes(num)
+addEvents(divs)
+
+dimBtn.addEventListener("click", ()=>{newGrid(divs)})
 
 
 
