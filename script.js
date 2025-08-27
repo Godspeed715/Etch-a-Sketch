@@ -26,9 +26,13 @@ function addEvents(divs){
 function newGrid(divs){
     var input
     input = parseInt(prompt("Enter dimensions between 2 and 100"))
-    deleteBoxes()
-    makeBoxes(input)
-    addEvents(divs)
+    if (input>=2 && input<=100){    
+        deleteBoxes()
+        makeBoxes(input)
+        addEvents(divs)
+    }
+    else
+        alert("Enter a dimension between 2 and 100.")
 }
 
 let num =16
