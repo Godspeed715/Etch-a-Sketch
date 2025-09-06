@@ -1,11 +1,14 @@
-function deleteBoxes() {
+const container = document.querySelector(".container")
+const dimBtn = document.querySelector(".dim-btn")
+
+function deleteBoxes(divs) {
   for (i = divs.length - 1; i >= 0; i--) {
     divs[i].remove()
     divs.pop()
   }
 }
 
-function makeBoxes(num) {
+function makeBoxes(num, container, divs) {
   for (i = 0; i < num * num; i++) {
     var div = document.createElement("div")
     container.appendChild(div)
@@ -26,12 +29,11 @@ function addEvents(divs) {
   })
 }
 
-function newGrid(divs) {
-  var input
-  input = parseInt(prompt("Enter dimensions between 2 and 100"))
+function newGrid(container, divs) {
+  let input = parseInt(prompt("Enter dimensions between 2 and 100"))
   if (input >= 2 && input <= 100) {
-    deleteBoxes()
-    makeBoxes(input)
+    deleteBoxes(divs)
+    makeBoxes(input, container, divs)
     addEvents(divs)
   }
   else {
@@ -39,17 +41,15 @@ function newGrid(divs) {
   }
 }
 
-let num = 16
-let divs = []
+function main() {
+  let num = 16
+  let divs = []
 
-const container = document.querySelector(".container")
-const dimBtn = document.querySelector(".dim-btn")
+  makeBoxes(num, container, divs)
+  addEvents(divs)
+  dimBtn.addEventListener("click", () => {
+    newGrid(container, divs)
+  })
+}
 
-
-makeBoxes(num)
-addEvents(divs)
-
-dimBtn.addEventListener("click", () => { newGrid(divs) })
-
-
-
+document.addEventListener("DOMContentLoaded", main)
